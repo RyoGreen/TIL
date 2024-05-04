@@ -37,3 +37,40 @@ fn main() {
     println!("use: {:?}", john)
 }
 ```
+
+# array and slice
+```
+fn main() {
+    // array
+    let xs: [i32; 5] = [1, 2, 3, 4, 5];
+    for x in xs.iter() {
+        println!("{}", x);
+    }
+
+    // slice
+    let slice = &xs[1..3];
+    println!("{:?}", slice);
+
+    // create slice from vec
+    let mut points: Vec<Point> = Vec::new();
+  
+    // how to append to slice
+    let p = Point { x: 1, y: 1 };
+    points.push(p);
+    for point in points.iter() {
+        println!("x: {}, y: {}", point.x, point.y);
+    }
+
+    let mut value = Vec::<i8>::with_capacity(10);
+    value.push(3);
+    value.push(4);
+    for v in &value {
+        println!("{}", v);
+    }
+}
+
+struct Point {
+    x: i32,
+    y: i32,
+}
+```
