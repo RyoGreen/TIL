@@ -5,11 +5,12 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 
+const MAX_LOOP_NUMBER: u32 = 10;
 fn main() {
     let secret_number = rand::thread_rng().gen_range(1..101);
     println!("The secret number is: {}", secret_number);
 
-    loop {
+    for i in 0..MAX_LOOP_NUMBER {
         println!("Please input your guess.");
         let mut guess = String::new();
         match io::stdin().read_line(&mut guess) {
@@ -41,6 +42,7 @@ fn main() {
                 return;
             }
         }
+        println!("You have {} chances left", MAX_LOOP_NUMBER - i - 1)
     }
 }
 ```
