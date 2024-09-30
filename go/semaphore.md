@@ -33,3 +33,33 @@ func main() {
 }
 
 ```
+
+## Set max workers based on CPU capacity
+
+```
+func main() {
+	var ctx = context.Background()
+	var wg sync.WaitGroup
+
+	maxWorkers := runtime.GOMAXPROCS(0)
+	sem := semaphore.NewWeighted(int64(maxWorkers))
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func(id int) {
+			defer wg.Done()
+
+			if err := sem.Acquire(ctx, 1); err != nil {
+				fmt.Println(err)
+				return
+			}
+			defer sem.Release(1)
+
+			fmt.Printf("Goroutine %d is running\n", id)
+			time.Sleep(1 * time.Second)
+		}(i)
+	}
+	wg.Wait()
+	fmt.Println("finished")
+}
+```
+
