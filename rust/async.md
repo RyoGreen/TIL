@@ -1,5 +1,7 @@
 # async / .wait
 
+main.rs
+
 ```rust
 use std::time::Duration;
 use tokio::time::sleep;
@@ -31,4 +33,16 @@ async fn read_from_database() -> String {
     sleep(Duration::from_millis(50)).await;
     "DB result".to_owned()
 }
+```
+
+Cargo.toml
+
+```
+[package]
+name = "rust-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = {version="1.17", features=["full"]}
 ```
