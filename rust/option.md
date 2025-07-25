@@ -33,3 +33,20 @@ fn simple_option(n: i32) -> Option<i32> {
     Some(n)
 }
 ```
+
+- checking Option
+```rust
+fn main() {
+    let option = simple_option(0);
+    if option.is_some() {
+        println!("Not Some")
+    }
+}
+
+fn simple_option(n: i32) -> Option<i32> {
+    if n == 0 {
+        return None;
+    }
+    Some(n)
+}
+```
