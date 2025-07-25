@@ -50,3 +50,21 @@ fn simple_option(n: i32) -> Option<i32> {
     Some(n)
 }
 ```
+
+- using match with Option
+```rust
+fn main() {
+    let v = match simple_option(0) {
+        Some(n) => n,
+        None => 0,
+    };
+    println!("The value is: {}", v);
+}
+
+fn simple_option(n: i32) -> Option<i32> {
+    if n == 0 {
+        return None;
+    }
+    Some(n)
+}
+```
