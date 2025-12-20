@@ -1,6 +1,6 @@
 # Error
 
-## Use match
+## match
 ```rust
 fn main() {
     let f = File::open("hello.txt");
@@ -13,3 +13,9 @@ fn main() {
 }
 ```
 
+## expect
+```rust
+fn main() {
+    let f = File::open("hello.txt").expect("Failed to open hello.txt");
+}
+```
