@@ -40,3 +40,32 @@ fn read_username_from_file(path: String) -> Result<String, std::io::Error> {
     Ok(s)
 }
 ```
+
+## map_err
+```rust
+use std::fs::File;
+use std::io::Read;
+
+#[derive(Debug)]
+enum CustomError {
+    Io(String),
+    Unknown(String),
+}
+
+fn main() {
+    match read_username_from_file("file.txt") {
+        Ok(username) => println!("Username: {}", username),
+        Err(e) => println!("Error: {:?}", e),
+    }
+}
+
+fn read_username_from_file(path: &str) -> Result<String, CustomError> {
+    let mut file = File::open(path).map_err(|e| CustomError::Io(e.to_string()))?;
+
+    let mut s = String::new();
+    file.read_to_string(&mut s)
+        .map_err(|e| CustomError::Unknown(e.to_string()))?;
+
+    Ok(s)
+}
+```
