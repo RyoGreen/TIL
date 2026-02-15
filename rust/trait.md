@@ -37,3 +37,49 @@ fn notify<T: Summary>(item: &T) {
 }
 ```
 
+## where 
+```
+use std::fmt::{Debug, Display};
+
+fn main() {
+    let user = User {
+        name: "Alice".to_string(),
+        age: 30,
+    };
+    let customer = Customer {
+        id: 1,
+        name: "Bob".to_string(),
+    };
+
+    let result = total_length(user.clone(), customer.clone());
+    println!("Total length: {}", result);
+}
+
+#[derive(Clone)]
+struct User {
+    name: String,
+    age: u32,
+}
+
+impl Display for User {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "User {{ name: {}, age: {} }}", self.name, self.age)
+    }
+}
+
+#[derive(Clone, Debug)]
+struct Customer {
+    id: u32,
+    name: String,
+}
+
+fn total_length<T, U>(t: T, u: U) -> i32
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
+    let len_t = format!("{}", t).len() as i32;
+    let len_u = format!("{:?}", u).len() as i32;
+    len_t + len_u
+}
+```
