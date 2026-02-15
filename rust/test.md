@@ -1,5 +1,4 @@
 # test
-
 ```
 #[derive(Debug)]
 struct Rectangle {
@@ -15,6 +14,14 @@ impl Rectangle {
 
 fn add_two(a: i32) -> i32 {
     a + 2
+}
+
+fn check_positive(a: i32) -> Result<i32, String> {
+    if a > 0 {
+        Ok(a)
+    } else {
+        Err(String::from("a must be greater than 0"))
+    }
 }
 
 #[cfg(test)]
@@ -34,7 +41,13 @@ mod tests {
     }
 
     #[test]
-    fn it_adds_two() {
-        assert_eq!(4, add_two(2))
+    fn check_positive_works() {
+        assert_eq!(check_positive(5), Ok(5));
+        assert_eq!(
+            check_positive(-3),
+            Err(String::from("a must be greater than 0"))
+        );
     }
-}```
+}
+```
+
